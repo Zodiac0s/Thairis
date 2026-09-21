@@ -110,6 +110,7 @@ html, body {
     color: rgba(229, 193, 88, 0.7);
     margin-top: 10px;
     font-style: italic;
+    text-align: center;
 }
 
 .tarjeta-atras {
@@ -497,4 +498,53 @@ html, body {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
+}
+
+/* Adaptación para pantallas de teléfonos */
+@media (max-width: 600px) {
+    .titulo-bienvenida {
+        font-size: 1.15rem;
+        margin-bottom: 15px;
+    }
+
+    .contenedor-tarjetas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 0 5px;
+    }
+
+    .tarjeta {
+        width: 100%;
+        height: 135px;
+    }
+
+    .tarjeta-frente, .tarjeta-atras {
+        padding: 8px 5px;
+        border-radius: 10px;
+    }
+
+    .tarjeta-frente .letra {
+        font-size: 2.2rem;
+    }
+
+    .tarjeta-frente .pista {
+        font-size: 0.65rem;
+        margin-top: 4px;
+        line-height: 1.1;
+    }
+
+    .tarjeta-atras p {
+        font-size: 0.72rem;
+        line-height: 1.25;
+    }
+
+    .contenedor-boton {
+        margin-top: 20px;
+    }
+
+    .btn-continuar {
+        padding: 10px 28px;
+        font-size: 1rem;
+    }
 }
