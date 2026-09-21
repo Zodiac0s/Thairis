@@ -12,6 +12,8 @@ const modulo1 = document.getElementById('modulo-1');
 const modulo2 = document.getElementById('modulo-2');
 const modulo3 = document.getElementById('modulo-3');
 
+let universoIniciado = false;
+
 btnContinuar.addEventListener('click', () => {
     modulo1.classList.remove('activo');
     modulo1.classList.add('oculto');
@@ -19,7 +21,10 @@ btnContinuar.addEventListener('click', () => {
     setTimeout(() => {
         modulo2.classList.remove('oculto');
         modulo2.classList.add('activo');
-        iniciarUniversoCanvas();
+        if (!universoIniciado) {
+            iniciarUniversoCanvas();
+            universoIniciado = true;
+        }
     }, 400);
 });
 
@@ -83,57 +88,54 @@ function iniciarUniversoCanvas() {
     const ctx = canvas.getContext('2d');
 
     function redimensionar() {
-        const dpr = window.devicePixelRatio || 1;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
         canvas.width = window.innerWidth * dpr;
         canvas.height = window.innerHeight * dpr;
     }
     redimensionar();
     window.addEventListener('resize', redimensionar);
 
+    const esMovel = window.innerWidth < 600;
+    const numEstrellas = esMovel ? 75 : 130;
     const estrellas = [];
-    for (let i = 0; i < 220; i++) {
+    for (let i = 0; i < numEstrellas; i++) {
         estrellas.push({
             x: Math.random(),
             y: Math.random(),
-            size: Math.random() * 1.6 + 0.4,
-            alpha: Math.random() * 0.75 + 0.2,
-            parpadeo: (Math.random() * 0.02) + 0.005
+            size: Math.random() * 1.4 + 0.4,
+            alpha: Math.random() * 0.7 + 0.2,
+            parpadeo: (Math.random() * 0.015) + 0.005
         });
     }
 
     const frases = [
         "Tu sonrisa ilumina mi mundo", "Gracias por existir", "Brillas con luz propia",
-        "Eres mi pensamiento favorito", "Mi bendición más grande", "Pura poesía en movimiento",
-        "Única e inigualable", "Tu paz me calma", "Mi lugar seguro", "Dulce ternura",
-        "Simplemente hermosa", "Amor de mi vida", "Mi pedacito de cielo", "Tu risa es mi canción",
-        "Magia pura", "Mi estrella guiadora", "Eterna para mí", "Mi refugio bonito",
-        "Luz de mis ojos", "Mi inspiración diaria", "Haces mi mundo mejor", "La melodía más dulce",
-        "Mi razón de sonreír", "Tesoro inestimable", "Contigo todo es mejor", "Mi destino favorito",
-        "Un sueño hecho realidad", "Mi hogar en ti", "Eternamente fascinante", "Mi calma en el caos",
-        "Brillaste desde el primer día", "Mi complemento perfecto", "Eres mi universo", "Llenas todo de luz",
-        "El arte de coincidir", "Simplemente tú", "Mi rincón preferido", "Infinito cariño"
+        "Eres mi pensamiento favorito", "Mi bendición más grande", "Pura poesía",
+        "Única e inigualable", "Tu paz me calma", "Mi lugar seguro",
+        "Simplemente hermosa", "Amor de mi vida", "Mi pedacito de cielo",
+        "Magia pura", "Mi estrella guiadora", "Eterna para mí",
+        "Luz de mis ojos", "Mi inspiración diaria", "Haces mi mundo mejor",
+        "Mi razón de sonreír", "Tesoro inestimable", "Contigo todo es mejor",
+        "Un sueño hecho realidad", "Mi universo", "Llenas todo de luz"
     ];
 
     const elementos3D = [];
     const distribucionAnillos = [
-        { multRadio: 0.20, cantidad: 8,  velFactor: 1.2,  opacidadBase: 0.95 },
-        { multRadio: 0.30, cantidad: 10, velFactor: 1.0,  opacidadBase: 0.90 },
-        { multRadio: 0.40, cantidad: 12, velFactor: 0.85, opacidadBase: 0.85 },
-        { multRadio: 0.50, cantidad: 14, velFactor: 0.70, opacidadBase: 0.80 },
-        { multRadio: 0.60, cantidad: 16, velFactor: 0.58, opacidadBase: 0.75 },
-        { multRadio: 0.70, cantidad: 18, velFactor: 0.45, opacidadBase: 0.68 }
+        { multRadio: 0.25, cantidad: 6, velFactor: 1.0, opacidadBase: 0.95 },
+        { multRadio: 0.42, cantidad: 8, velFactor: 0.75, opacidadBase: 0.85 },
+        { multRadio: 0.60, cantidad: 10, velFactor: 0.55, opacidadBase: 0.75 }
     ];
 
     let indiceFrase = 0;
     distribucionAnillos.forEach((anillo, idxAnillo) => {
-        const offsetAngulo = (idxAnillo * 0.45);
+        const offsetAngulo = (idxAnillo * 0.5);
         for (let i = 0; i < anillo.cantidad; i++) {
             const angulo = ((i / anillo.cantidad) * Math.PI * 2) + offsetAngulo;
             elementos3D.push({
                 texto: frases[indiceFrase % frases.length],
                 anguloInicial: angulo,
                 multRadio: anillo.multRadio,
-                inclinacion: 0.38,
+                inclinacion: 0.35,
                 velFactor: anillo.velFactor,
                 opacidadBase: anillo.opacidadBase
             });
@@ -142,7 +144,7 @@ function iniciarUniversoCanvas() {
     });
 
     let rotacionY = 0;
-    let rotacionX = 0.28;
+    let rotacionX = 0.25;
     let velY = 0.002;
     let isDragging = false;
     let lastMouseX = 0, lastMouseY = 0;
@@ -160,9 +162,9 @@ function iniciarUniversoCanvas() {
         const deltaX = p.clientX - lastMouseX;
         const deltaY = p.clientY - lastMouseY;
 
-        rotacionY += deltaX * 0.0035;
-        rotacionX += deltaY * 0.0035;
-        rotacionX = Math.max(-0.55, Math.min(0.55, rotacionX));
+        rotacionY += deltaX * 0.003;
+        rotacionX += deltaY * 0.003;
+        rotacionX = Math.max(-0.5, Math.min(0.5, rotacionX));
 
         lastMouseX = p.clientX;
         lastMouseY = p.clientY;
@@ -181,18 +183,18 @@ function iniciarUniversoCanvas() {
     function render() {
         const w = canvas.width;
         const h = canvas.height;
-        const dpr = window.devicePixelRatio || 1;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
         const centroX = w / 2;
         const centroY = h / 2;
 
         const dimensionBase = Math.min(w, h);
-        const radioPlaneta = dimensionBase * 0.11;
+        const radioPlaneta = dimensionBase * 0.12;
 
         ctx.clearRect(0, 0, w, h);
 
         estrellas.forEach(st => {
             st.alpha += st.parpadeo;
-            if (st.alpha > 0.95 || st.alpha < 0.15) st.parpadeo *= -1;
+            if (st.alpha > 0.9 || st.alpha < 0.2) st.parpadeo *= -1;
             ctx.fillStyle = `rgba(255, 245, 210, ${st.alpha})`;
             ctx.beginPath();
             ctx.arc(st.x * w, st.y * h, st.size * dpr, 0, Math.PI * 2);
@@ -220,7 +222,7 @@ function iniciarUniversoCanvas() {
             const scale = focalLength / (focalLength + z1 + dimensionBase * 0.3);
             const xProj = centroX + x0 * scale;
             const yProj = centroY + y1 * scale;
-            const alphaProfundidad = Math.max(0.15, Math.min(1, (z1 + dimensionBase * 0.45) / (dimensionBase * 0.65)));
+            const alphaProfundidad = Math.max(0.2, Math.min(1, (z1 + dimensionBase * 0.45) / (dimensionBase * 0.65)));
 
             renderList.push({
                 tipo: 'texto',
@@ -249,13 +251,13 @@ function iniciarUniversoCanvas() {
 
     function dibujarPlaneta(ctx, cx, cy, r, base) {
         ctx.save();
-        const aura = ctx.createRadialGradient(cx, cy, r * 0.7, cx, cy, r * 2.6);
-        aura.addColorStop(0, 'rgba(255, 215, 0, 0.40)');
-        aura.addColorStop(0.4, 'rgba(212, 90, 15, 0.15)');
+        const aura = ctx.createRadialGradient(cx, cy, r * 0.7, cx, cy, r * 2.2);
+        aura.addColorStop(0, 'rgba(255, 215, 0, 0.35)');
+        aura.addColorStop(0.5, 'rgba(212, 90, 15, 0.1)');
         aura.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = aura;
         ctx.beginPath();
-        ctx.arc(cx, cy, r * 2.6, 0, Math.PI * 2);
+        ctx.arc(cx, cy, r * 2.2, 0, Math.PI * 2);
         ctx.fill();
 
         const grad = ctx.createRadialGradient(
@@ -265,20 +267,19 @@ function iniciarUniversoCanvas() {
         grad.addColorStop(0, '#ffffff');
         grad.addColorStop(0.2, '#fff2a3');
         grad.addColorStop(0.5, '#ffd700');
-        grad.addColorStop(0.78, '#b86105');
-        grad.addColorStop(0.95, '#3d1202');
-        grad.addColorStop(1, '#080100');
+        grad.addColorStop(0.8, '#b86105');
+        grad.addColorStop(1, '#1a0300');
 
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
         ctx.fill();
 
-        [0.30, 0.50, 0.70].forEach(mult => {
-            ctx.strokeStyle = 'rgba(255, 215, 0, 0.12)';
+        [0.35, 0.55].forEach(mult => {
+            ctx.strokeStyle = 'rgba(255, 215, 0, 0.15)';
             ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.ellipse(cx, cy, base * mult, base * mult * 0.38, rotacionX, 0, Math.PI * 2);
+            ctx.ellipse(cx, cy, base * mult, base * mult * 0.35, rotacionX, 0, Math.PI * 2);
             ctx.stroke();
         });
 
@@ -288,14 +289,12 @@ function iniciarUniversoCanvas() {
     function dibujarTexto(ctx, item, base) {
         ctx.save();
         ctx.globalAlpha = item.alpha;
-        const factorTamano = Math.max(0.016, 0.024 - (item.multRadio * 0.008));
-        const fontSize = Math.max(11, base * factorTamano * item.scale);
+        const factorTamano = Math.max(0.018, 0.026 - (item.multRadio * 0.008));
+        const fontSize = Math.max(12, base * factorTamano * item.scale);
 
         ctx.font = `italic 600 ${fontSize}px 'Cormorant Garamond', serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.shadowColor = 'rgba(255, 215, 0, 0.85)';
-        ctx.shadowBlur = 8 * item.scale;
         ctx.fillStyle = '#fff6d6';
         ctx.fillText(item.texto, item.x, item.y);
         ctx.restore();
