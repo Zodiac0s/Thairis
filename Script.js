@@ -96,7 +96,7 @@ function iniciarUniversoCanvas() {
     window.addEventListener('resize', redimensionar);
 
     const esMovel = window.innerWidth < 600;
-    const numEstrellas = esMovel ? 75 : 130;
+    const numEstrellas = esMovel ? 80 : 140;
     const estrellas = [];
     for (let i = 0; i < numEstrellas; i++) {
         estrellas.push({
@@ -108,27 +108,47 @@ function iniciarUniversoCanvas() {
         });
     }
 
+    // LISTA COMPLETA DE MENSAJES (78 FRASES)
     const frases = [
-        "Tu sonrisa ilumina mi mundo", "Gracias por existir", "Brillas con luz propia",
-        "Eres mi pensamiento favorito", "Mi bendición más grande", "Pura poesía",
-        "Única e inigualable", "Tu paz me calma", "Mi lugar seguro",
-        "Simplemente hermosa", "Amor de mi vida", "Mi pedacito de cielo",
-        "Magia pura", "Mi estrella guiadora", "Eterna para mí",
-        "Luz de mis ojos", "Mi inspiración diaria", "Haces mi mundo mejor",
-        "Mi razón de sonreír", "Tesoro inestimable", "Contigo todo es mejor",
-        "Un sueño hecho realidad", "Mi universo", "Llenas todo de luz"
+        "Eres el centro de mi universo", "Tu sonrisa ilumina mi mundo", "Gracias por existir",
+        "Brillas con luz propia", "Mi lugar seguro", "Eres mi pensamiento favorito",
+        "Mi bendición más grande", "Pura poesía en movimiento", "Única e inigualable",
+        "Tu paz me calma", "Mi refugio permanente", "Simplemente hermosa",
+        "Amor de mi vida", "Mi pedacito de cielo", "Magia pura",
+        "Mi estrella guiadora", "Eterna para mí", "Luz de mis ojos",
+        "Mi inspiración diaria", "Haces mi mundo mejor", "Mi razón de sonreír",
+        "Tesoro inestimable", "Contigo todo es mejor", "Un sueño hecho realidad",
+        "Mi universo", "Llenas todo de luz", "Mi persona favorita",
+        "Dulce ternura", "Mi calma en el caos", "El arte de coincidir",
+        "Mi destino favorito", "Simplemente tú", "Mi melodía más dulce",
+        "Eterno instante", "Un viaje hacia ti", "Mi constelación",
+        "Mi mundo entero", "La razón de mi alegría", "Cada segundo contigo",
+        "Alegre melodía", "Mi sol de cada día", "Suavidad y luz",
+        "Fascinante mirada", "Mi abrazo favorito", "Mi abrigo en el frío",
+        "Un regalo del cielo", "Mi luz en la oscuridad", "Infinita bondad",
+        "Amor sincero", "Mi cómplice estrella", "Siempre tú",
+        "Mi hogar en ti", "Eterno resplandor", "Mi mayor tesoro",
+        "Risas compartidas", "Mi momento perfecto", "Mi poesía favorita",
+        "Destello de amor", "Mi dulce refugio", "Luz que guía",
+        "Mi alma gemela", "Mágica coincidencia", "Mi universo entero",
+        "Bendición divina", "Mi paz absoluta", "Sonrisa eterna",
+        "Mi latido preferido", "Amor sin fin", "El mejor regalo",
+        "Brillo infinito", "Mi cielo particular", "Hermosa fantasía",
+        "Mi verdad más pura", "Gracias por tanto", "Contigo siempre",
+        "Mi norte y mi guía", "Amor incondicional", "Te adoro infinitamente"
     ];
 
     const elementos3D = [];
     const distribucionAnillos = [
-        { multRadio: 0.25, cantidad: 6, velFactor: 1.0, opacidadBase: 0.95 },
-        { multRadio: 0.42, cantidad: 8, velFactor: 0.75, opacidadBase: 0.85 },
-        { multRadio: 0.60, cantidad: 10, velFactor: 0.55, opacidadBase: 0.75 }
+        { multRadio: 0.22, cantidad: 12, velFactor: 1.0, opacidadBase: 0.95 },
+        { multRadio: 0.38, cantidad: 20, velFactor: 0.75, opacidadBase: 0.85 },
+        { multRadio: 0.55, cantidad: 22, velFactor: 0.55, opacidadBase: 0.75 },
+        { multRadio: 0.72, cantidad: 24, velFactor: 0.35, opacidadBase: 0.65 }
     ];
 
     let indiceFrase = 0;
     distribucionAnillos.forEach((anillo, idxAnillo) => {
-        const offsetAngulo = (idxAnillo * 0.5);
+        const offsetAngulo = (idxAnillo * 0.4);
         for (let i = 0; i < anillo.cantidad; i++) {
             const angulo = ((i / anillo.cantidad) * Math.PI * 2) + offsetAngulo;
             elementos3D.push({
@@ -188,7 +208,7 @@ function iniciarUniversoCanvas() {
         const centroY = h / 2;
 
         const dimensionBase = Math.min(w, h);
-        const radioPlaneta = dimensionBase * 0.12;
+        const radioPlaneta = dimensionBase * 0.11;
 
         ctx.clearRect(0, 0, w, h);
 
@@ -275,7 +295,7 @@ function iniciarUniversoCanvas() {
         ctx.arc(cx, cy, r, 0, Math.PI * 2);
         ctx.fill();
 
-        [0.35, 0.55].forEach(mult => {
+        [0.38, 0.55].forEach(mult => {
             ctx.strokeStyle = 'rgba(255, 215, 0, 0.15)';
             ctx.lineWidth = 1;
             ctx.beginPath();
@@ -289,8 +309,8 @@ function iniciarUniversoCanvas() {
     function dibujarTexto(ctx, item, base) {
         ctx.save();
         ctx.globalAlpha = item.alpha;
-        const factorTamano = Math.max(0.018, 0.026 - (item.multRadio * 0.008));
-        const fontSize = Math.max(12, base * factorTamano * item.scale);
+        const factorTamano = Math.max(0.016, 0.024 - (item.multRadio * 0.007));
+        const fontSize = Math.max(11, base * factorTamano * item.scale);
 
         ctx.font = `italic 600 ${fontSize}px 'Cormorant Garamond', serif`;
         ctx.textAlign = 'center';
@@ -299,6 +319,9 @@ function iniciarUniversoCanvas() {
         ctx.fillText(item.texto, item.x, item.y);
         ctx.restore();
     }
+
+    render();
+}
 
     render();
 }
