@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desde mi corazón</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <section id="modulo-1" class="modulo activo">
+        <h2 class="titulo-bienvenida">Toca cada letra de tu nombre...</h2>
+
+        <div class="contenedor-tarjetas">
+            <div class="tarjeta">
+                <div class="tarjeta-frente">
+                    <span class="letra">T</span>
+                    <span class="pista">Toca para descubrir</span>
+                </div>
+                <div class="tarjeta-atras">
+                    <p>Tu fuerza no conoce tempestad que no pueda calmar; caminas entre las tormentas con la firmeza de quien nació para vencer cada batalla.</p>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-frente">
+                    <span class="letra">H</span>
+                    <span class="pista">Haz clic con cariño</span>
+                </div>
+                <div class="tarjeta-atras">
+                    <p>Hermosa en cada destello, no solo por lo que los ojos ven, sino por el refugio de luz y calidez que se esconde en tu mirada.</p>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-frente">
+                    <span class="letra">A</span>
+                    <span class="pista">Abre este detalle</span>
+                </div>
+                <div class="tarjeta-atras">
+                    <p>Amor hecho refugio y manos abiertas; tienes ese don divino de sanar con tu presencia y entregarte sin reservas a quien lo necesita.</p>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-frente">
+                    <span class="letra">I</span>
+                    <span class="pista">Inicia la magia</span>
+                </div>
+                <div class="tarjeta-atras">
+                    <p>Inmensa e inolvidable en mi vida, como un faro permanente que le da sentido a mis días y le regala un brillo distinto a mi universo.</p>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-frente">
+                    <span class="letra">R</span>
+                    <span class="pista">Revela este verso</span>
+                </div>
+                <div class="tarjeta-atras">
+                    <p>Risa rebelde y dulce locura, ese destello impredecible que transforma los días grises en pura poesía y los llena de color.</p>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-frente">
+                    <span class="letra">I</span>
+                    <span class="pista">Ilumina tu día</span>
+                </div>
+                <div class="tarjeta-atras">
+                    <p>Inquebrantable espíritu de fuego; ante la adversidad no te quiebras, te elevas con la gracia valiente de las almas invencibles.</p>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <div class="tarjeta-frente">
+                    <span class="letra">S</span>
+                    <span class="pista">Siente cada frase</span>
+                </div>
+                <div class="tarjeta-atras">
+                    <p>Siempre tú, perfecta mezcla de tormenta y calma, de carácter y ternura. Gracias por ser el arte más bonito con el que me he cruzado.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contenedor-boton">
+            <button id="btn-continuar" class="btn-continuar">Continuar</button>
+        </div>
+    </section>
+
+    <section id="modulo-2" class="modulo oculto">
+        <div class="encabezado-galaxia">
+            <h2 class="titulo-galaxia">Eres el centro de mi universo</h2>
+            <p class="subtitulo-interactivo">Arrastra en cualquier dirección para explorar</p>
+        </div>
+        
+        <div class="contenedor-canvas">
+            <canvas id="canvas-universo"></canvas>
+        </div>
+
+        <button id="btn-ir-carta" class="btn-flotante-carta">Tengo una carta para ti</button>
+    </section>
+
+    <section id="modulo-3" class="modulo oculto">
+        <p id="instruccion-sobre" class="instruccion-sobre">Toca el sobre para abrir la carta</p>
+
+        <div class="escena-carta">
+            <div class="envoltorio-sobre" id="envoltorio-sobre">
+                <div class="sobre" id="sobre">
+                    <div class="solapa-trasera"></div>
+                    <div class="frente-sobre"></div>
+                    <div class="solapa-superior" id="solapa"></div>
+                    <div class="sello-cera" id="sello">💌</div>
+                </div>
+            </div>
+
+            <div class="hoja-pergamino" id="hoja-carta">
+                <div class="borde-oro-interior">
+                    <div class="contenido-poético">
+                        <span class="corona-ornamento">⚜️</span>
+                        <h3 class="titulo-carta">Eternamente Contigo</h3>
+                        <div class="divisor-oro"><span>✦</span></div>
+                        
+                        <p class="verso">Dicen que cuando el destino está trazado, las sorpresas se extinguen. Pero contigo, cada segundo desmiente a la certeza.</p>
+
+                        <p class="verso resaltar-oro">Aunque conozcamos nuestro futuro y sepamos hacia dónde camina nuestro destino, estar a tu lado convierte lo predecible en algo sagrado e irrepetible.</p>
+
+                        <p class="verso">No hay mañana escrito que le reste magia al sonido de tu risa hoy, ni eternidad prometida que supere el refugio de tus abrazos en este instante.</p>
+
+                        <p class="verso frase-cierre">Cada momento que paso a tu lado es único, libre del tiempo y lleno de luz.</p>
+
+                        <div class="firma-contenedor">
+                            <span class="firma-texto">Por siempre para ti,</span>
+                            <span class="corazon-icono">❤️</span>
+                        </div>
+
+                        <button id="btn-cerrar-carta" class="btn-cerrar-carta">Guardar carta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="btn-reiniciar" class="btn-continuar oculto-boton">Volver al inicio</button>
+    </section>
+
+    <script src="Script.js"></script>
+</body>
+</html>
